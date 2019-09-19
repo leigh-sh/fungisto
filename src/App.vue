@@ -1,28 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-layout justify-center>
+      <v-flex class="app-wrapper">
+        <component :is="route"
+                   @routeChange="changeRoute"/>
+      </v-flex>
+    </v-layout>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Start from './components/Start'
+import ParticipentSelection from './components/ParticipentSelection'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
+    Start,
+    ParticipentSelection
+  },
+  data: () => ({
+    route: 'Start'
+  }),
+  methods: {
+    changeRoute (route) {
+      this.route = route
+    }
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus">
+  .app-wrapper
+    max-width: 600px
+  .main-wrapper
+    padding: 40px
+    min-height: 100vh
+    .v-btn
+      width: 100% !important
+      min-width: 100% !important
+      height: 100px !important
 </style>
