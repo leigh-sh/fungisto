@@ -131,7 +131,7 @@ export default {
         return person.isSelected
       })
     },
-    personsFiltered() {
+    personsFiltered () {
       return this.persons.filter(person => person.region === this.region ||
                                            this.region === 'All')
     }
