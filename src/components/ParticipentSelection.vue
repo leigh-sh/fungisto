@@ -3,6 +3,7 @@
     <v-layout column justify-space-between class="main-wrapper">
       <v-flex shrink>
         <h1>Employees</h1>
+        <hr/>
       </v-flex>
       <v-flex>
         <v-select
@@ -85,17 +86,17 @@ export default {
   data: () => {
     return {
       persons: [
-        { name: 'Eyal',   isSelected: false, region: 1, score: 10 },
-        { name: 'Eilon',  isSelected: false, region: 1, score: 20 },
-        { name: 'Asi',    isSelected: false, region: 2, score: 30 },
-        { name: 'Andrei', isSelected: false, region: 2, score: 10 },
-        { name: 'Uri',    isSelected: false, region: 3, score: 20 },
-        { name: 'Noam',   isSelected: false, region: 3, score: 30 },
-        { name: 'Leigh',  isSelected: false, region: 3, score: 10 },
-        { name: 'Meir',   isSelected: false, region: 3, score: 20 }
+        // { name: 'Eyal',   isSelected: false, region: 1, score: 10 },
+        // { name: 'Eilon',  isSelected: false, region: 1, score: 20 },
+        // { name: 'Asi',    isSelected: false, region: 2, score: 30 },
+        // { name: 'Andrei', isSelected: false, region: 2, score: 10 },
+        // { name: 'Uri',    isSelected: false, region: 3, score: 20 },
+        // { name: 'Noam',   isSelected: false, region: 3, score: 30 },
+        // { name: 'Leigh',  isSelected: false, region: 3, score: 10 },
+        // { name: 'Meir',   isSelected: false, region: 3, score: 20 }
       ],
       regions: [
-        'All', 1, 2, 3
+        'All'
       ],
       region: 'All',
       selectedPersons: [],
@@ -135,6 +136,15 @@ export default {
       return this.persons.filter(person => person.region === this.region ||
                                            this.region === 'All')
     }
+  },
+  mounted: function () {
+    this.$http.get('https://fungisto.narxx.com/getPersons.php').then( (resp) => {
+      this.persons = resp.body
+      this.persons.forEach( (person) => {
+        this.regions.push(person.region)
+      })
+      this.regions = Array.from(new Set(this.regions))
+    })
   }
 }
 </script>
